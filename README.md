@@ -19,11 +19,10 @@ This repository contains a sales API built with a DDD-inspired structure. The fo
 - Updating a sale replaces active items by product; missing items are cancelled.
 
 ## Running the project
-From `template/backend`:
+From repository root:
 
 ### With Docker (recommended)
 1) `docker compose up -d --build`
-2) `dotnet run --project src/Ambev.DeveloperEvaluation.WebApi`
 
 The application applies EF Core migrations at startup.
 
@@ -33,10 +32,17 @@ The application applies EF Core migrations at startup.
 - Update connection strings in `template/backend/src/Ambev.DeveloperEvaluation.WebApi/appsettings.json` if needed
 
 Run:
-- `dotnet run --project template/backend/src/Ambev.DeveloperEvaluation.WebApi`
+- `dotnet run --project src/Ambev.DeveloperEvaluation.WebApi`
 
 ## Running tests
 - `dotnet test template/backend/tests/Ambev.DeveloperEvaluation.Unit/Ambev.DeveloperEvaluation.Unit.csproj`
+
+## Authentication
+Default user seeded in Development:
+- Email: `user@local.com`
+- Password: `default@123`
+
+Use `POST /auth` to get a token, then pass `Authorization: Bearer <token>` to call protected endpoints.
 
 ## Notes and decisions
 - Error responses follow ProblemDetails via a global exception middleware.
