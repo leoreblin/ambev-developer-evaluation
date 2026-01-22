@@ -17,6 +17,8 @@ public sealed class SaleConfiguration : IEntityTypeConfiguration<Sale>
 
         builder.Property(s => s.Number).IsRequired().HasMaxLength(100);
         builder.Property(s => s.OccurredAt).IsRequired().HasDefaultValue(DateTime.UtcNow);
+        builder.Property(s => s.CustomerName).IsRequired().HasMaxLength(200);
+        builder.Property(s => s.BranchName).IsRequired().HasMaxLength(200);
 
         builder.HasOne(s => s.Customer)
             .WithMany()
@@ -33,6 +35,7 @@ public sealed class SaleConfiguration : IEntityTypeConfiguration<Sale>
             itemBuilder.ToTable("SaleItems");
             itemBuilder.WithOwner().HasForeignKey("SaleId");
             itemBuilder.Property(i => i.ProductId).HasColumnType("uuid").IsRequired();
+            itemBuilder.Property(i => i.ProductName).IsRequired().HasMaxLength(200);
             itemBuilder.Property(i => i.Quantity).IsRequired();
             itemBuilder.Property(i => i.UnitPrice).IsRequired().HasPrecision(18, 2);
             itemBuilder.Property(i => i.Discount).IsRequired().HasPrecision(18, 2);

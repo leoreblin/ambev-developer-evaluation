@@ -15,6 +15,11 @@ public sealed class SaleItem : AggregateRoot
     public Guid ProductId { get; private set; }
 
     /// <summary>
+    /// Represents the product name.
+    /// </summary>
+    public string ProductName { get; private set; } = string.Empty;
+
+    /// <summary>
     /// Gets the quantity of the product.
     /// </summary>
     public int Quantity { get; private set; }
@@ -54,12 +59,14 @@ public sealed class SaleItem : AggregateRoot
     /// <param name="total">The total price after applying the discount.</param>
     public SaleItem(
         Guid productId,
+        string productName,
         int quantity,
         decimal unitPrice,
         decimal discount,
         decimal total) : base(Guid.NewGuid())
     {
         ProductId = productId;
+        ProductName = productName;
         Quantity = quantity;
         UnitPrice = unitPrice;
         Discount = discount;
@@ -81,13 +88,14 @@ public sealed class SaleItem : AggregateRoot
         Raise(new SaleItemCancelledEvent(this));
     }
 
-    internal void UpdatePricing(int quantity, decimal unitPrice, decimal discount, decimal total)
+    internal void UpdatePricing(string productName, int quantity, decimal unitPrice, decimal discount, decimal total)
     {
         if (IsCancelled)
         {
             throw new DomainException("Cannot update a cancelled sale item.");
         }
 
+        ProductName = productName;
         Quantity = quantity;
         UnitPrice = unitPrice;
         Discount = discount;

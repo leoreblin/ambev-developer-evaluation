@@ -15,6 +15,7 @@ internal sealed class CreateSaleHandler : IRequestHandler<CreateSaleCommand, Cre
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IBranchRepository _branchRepository;
     private readonly IProductRepository _productRepository;
     private readonly IUnitOfWork _unitOfWork;
 
@@ -28,11 +29,13 @@ internal sealed class CreateSaleHandler : IRequestHandler<CreateSaleCommand, Cre
     public CreateSaleHandler(
         ISaleRepository saleRepository,
         IUserRepository userRepository,
+        IBranchRepository branchRepository,
         IProductRepository productRepository,
         IUnitOfWork unitOfWork)
     {
         _saleRepository = saleRepository;
         _userRepository = userRepository;
+        _branchRepository = branchRepository;
         _productRepository = productRepository;
         _unitOfWork = unitOfWork;
     }
@@ -52,20 +55,32 @@ internal sealed class CreateSaleHandler : IRequestHandler<CreateSaleCommand, Cre
         if (customer.Role != UserRole.Customer)
             throw new ValidationException("The user is not a customer.");
 
+        var branch = await _branchRepository.GetByIdAsync(request.BranchId, cancellationToken)
+            ?? throw new ValidationException($"There's no branch of ID {request.BranchId}.");
+
         var sale = new Sale(
             Guid.NewGuid(),
             GenerateSaleNumber(),
             DateTime.UtcNow,
             customer.Id,
-            request.BranchId);
+            customer.Username,
+            request.BranchId,
+            branch.Name);
 
         var distinctProductIds = request.Items.Select(item => item.ProductId).Distinct();
         var productsExist = await _productRepository.ProductsExistAsync(distinctProductIds, cancellationToken);
         if (!productsExist)
             throw new ValidationException("Some products do not exist.");
 
+        var products = await _productRepository.GetByIdsAsync(distinctProductIds, cancellationToken);
+        var productLookup = products.ToDictionary(p => p.Id, p => p.Title);
+
         var saleItems = request.Items
-            .Select(item => new SaleItemDraft(item.ProductId, item.Quantity, item.UnitPrice))
+            .Select(item =>
+            {
+                var productName = productLookup[item.ProductId];
+                return new SaleItemDraft(item.ProductId, productName, item.Quantity, item.UnitPrice);
+            })
             .ToList();
 
         sale.ReplaceItems(saleItems);

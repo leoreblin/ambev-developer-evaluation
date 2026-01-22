@@ -6,6 +6,7 @@ public record GetSaleItemResponse
 {
     public Guid ItemId { get; set; }
     public Guid ProductId { get; set; }
+    public string ProductName { get; set; } = string.Empty;
     public int ItemQuantity { get; set; }
     public decimal ItemUnitPrice { get; set; }
     public decimal ItemDiscount { get; set; }
@@ -18,6 +19,7 @@ public record GetSaleItemResponse
         {
             ItemId = entity.Id,
             ProductId = entity.ProductId,
+            ProductName = entity.ProductName,
             ItemQuantity = entity.Quantity,
             ItemUnitPrice = entity.UnitPrice,
             ItemDiscount = entity.Discount,

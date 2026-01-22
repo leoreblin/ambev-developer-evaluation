@@ -23,6 +23,11 @@ public class Sale : AggregateRoot
     public Guid CustomerId { get; private set; }
 
     /// <summary>
+    /// Gets the customer name stored for external identity reference.
+    /// </summary>
+    public string CustomerName { get; private set; } = string.Empty;
+
+    /// <summary>
     /// Gets the customer associated with the sale.
     /// </summary>
     public User Customer { get; private set; } = default!;
@@ -36,6 +41,11 @@ public class Sale : AggregateRoot
     /// Gets the branch identifier where the sale occurred.
     /// </summary>
     public Guid BranchId { get; private set; }
+
+    /// <summary>
+    /// Gets the branch name stored for external identity reference.
+    /// </summary>
+    public string BranchName { get; private set; } = string.Empty;
 
     /// <summary>
     /// Gets the branch associated with the sale.
@@ -57,12 +67,16 @@ public class Sale : AggregateRoot
         string number,
         DateTime occuredAt,
         Guid customerId,
-        Guid branchId) : base(id)
+        string customerName,
+        Guid branchId,
+        string branchName) : base(id)
     {
         Number = number;
         OccurredAt = occuredAt;
         CustomerId = customerId;
+        CustomerName = customerName;
         BranchId = branchId;
+        BranchName = branchName;
         IsCancelled = false;
 
         Raise(new SaleCreatedEvent(this));
@@ -75,10 +89,10 @@ public class Sale : AggregateRoot
     /// <param name="quantity"></param>
     /// <param name="unitPrice"></param>
     /// <exception cref="DomainException"></exception>
-    public void AddItem(Guid productId, int quantity, decimal unitPrice)
+    public void AddItem(Guid productId, string productName, int quantity, decimal unitPrice)
     {
         EnsureCanModify();
-        EnsureValidItem(productId, quantity, unitPrice);
+        EnsureValidItem(productId, productName, quantity, unitPrice);
 
         var existingItem = _items.FirstOrDefault(i => !i.IsCancelled && i.ProductId == productId);
         var newQuantity = existingItem is null ? quantity : existingItem.Quantity + quantity;
@@ -93,16 +107,21 @@ public class Sale : AggregateRoot
             throw new DomainException("Unit price must be consistent for the same product.");
         }
 
+        if (existingItem is not null && existingItem.ProductName != productName)
+        {
+            throw new DomainException("Product name must be consistent for the same product.");
+        }
+
         var discount = CalculateDiscount(newQuantity);
         var itemTotal = CalculateItemTotal(newQuantity, unitPrice, discount);
 
         if (existingItem is null)
         {
-            _items.Add(new SaleItem(productId, newQuantity, unitPrice, discount, itemTotal));
+            _items.Add(new SaleItem(productId, productName, newQuantity, unitPrice, discount, itemTotal));
         }
         else
         {
-            existingItem.UpdatePricing(newQuantity, unitPrice, discount, itemTotal);
+            existingItem.UpdatePricing(productName, newQuantity, unitPrice, discount, itemTotal);
         }
 
         UpdateTotalAmount();
@@ -135,11 +154,11 @@ public class Sale : AggregateRoot
 
             if (activeItems.TryGetValue(item.ProductId, out var existing))
             {
-                existing.UpdatePricing(item.Quantity, item.UnitPrice, discount, itemTotal);
+                existing.UpdatePricing(item.ProductName, item.Quantity, item.UnitPrice, discount, itemTotal);
             }
             else
             {
-                _items.Add(new SaleItem(item.ProductId, item.Quantity, item.UnitPrice, discount, itemTotal));
+                _items.Add(new SaleItem(item.ProductId, item.ProductName, item.Quantity, item.UnitPrice, discount, itemTotal));
             }
         }
 
@@ -212,11 +231,16 @@ public class Sale : AggregateRoot
     private static decimal CalculateItemTotal(int quantity, decimal unitPrice, decimal discount) =>
         quantity * unitPrice * (1 - discount);
 
-    private static void EnsureValidItem(Guid productId, int quantity, decimal unitPrice)
+    private static void EnsureValidItem(Guid productId, string productName, int quantity, decimal unitPrice)
     {
         if (productId == Guid.Empty)
         {
             throw new DomainException("Product ID is required.");
+        }
+
+        if (string.IsNullOrWhiteSpace(productName))
+        {
+            throw new DomainException("Product name is required.");
         }
 
         if (quantity <= 0)
@@ -247,17 +271,24 @@ public class Sale : AggregateRoot
                     throw new DomainException("Unit price must be consistent for the same product.");
                 }
 
+                var productNames = group.Select(i => i.ProductName).Distinct().ToList();
+                if (productNames.Count > 1)
+                {
+                    throw new DomainException("Product name must be consistent for the same product.");
+                }
+
                 var totalQuantity = group.Sum(i => i.Quantity);
                 var unitPrice = unitPrices.Single();
+                var productName = productNames.Single();
 
-                EnsureValidItem(group.Key, totalQuantity, unitPrice);
+                EnsureValidItem(group.Key, productName, totalQuantity, unitPrice);
 
                 if (totalQuantity > 20)
                 {
                     throw new DomainException("Maximum 20 items per product allowed.");
                 }
 
-                return new SaleItemDraft(group.Key, totalQuantity, unitPrice);
+                return new SaleItemDraft(group.Key, productName, totalQuantity, unitPrice);
             })
             .ToList();
 

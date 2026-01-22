@@ -48,8 +48,15 @@ internal sealed class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, Uni
             throw new ValidationException("Some products do not exist.");
         }
 
+        var products = await _productRepository.GetByIdsAsync(distinctProductIds, cancellationToken);
+        var productLookup = products.ToDictionary(p => p.Id, p => p.Title);
+
         var saleItems = request.Items
-            .Select(item => new SaleItemDraft(item.ProductId, item.Quantity, item.UnitPrice))
+            .Select(item =>
+            {
+                var productName = productLookup[item.ProductId];
+                return new SaleItemDraft(item.ProductId, productName, item.Quantity, item.UnitPrice);
+            })
             .ToList();
 
         sale.ReplaceItems(saleItems);

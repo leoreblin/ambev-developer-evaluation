@@ -25,8 +25,8 @@ public record GetSaleResponse
             CustomerId = entity.CustomerId,
             BranchId = entity.BranchId,
             TotalAmount = Math.Round(entity.TotalAmount, 2),
-            CustomerName = entity.Customer.Username,
-            BranchName = entity.Branch.Name,
+            CustomerName = entity.CustomerName,
+            BranchName = entity.BranchName,
             IsCancelled = entity.IsCancelled,
             Items = entity.Items.Select(i => (GetSaleItemResponse)i)
         };

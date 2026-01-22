@@ -23,4 +23,14 @@ public sealed class BranchRepository : IBranchRepository
     {
         return await _context.Branches.ToListAsync(cancellationToken);
     }
+
+    /// <inheritdoc/>
+    public async Task<Branch?> GetByIdAsync(
+        Guid branchId,
+        CancellationToken cancellationToken = default)
+    {
+        return await _context.Branches
+            .AsNoTracking()
+            .FirstOrDefaultAsync(branch => branch.Id == branchId, cancellationToken);
+    }
 }
