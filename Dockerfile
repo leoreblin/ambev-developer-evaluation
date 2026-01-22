@@ -14,6 +14,7 @@ COPY ["src/Ambev.DeveloperEvaluation.Common/Ambev.DeveloperEvaluation.Common.csp
 COPY ["src/Ambev.DeveloperEvaluation.Domain/Ambev.DeveloperEvaluation.Domain.csproj", "src/Ambev.DeveloperEvaluation.Domain/"]
 COPY ["src/Ambev.DeveloperEvaluation.IoC/Ambev.DeveloperEvaluation.IoC.csproj", "src/Ambev.DeveloperEvaluation.IoC/"]
 COPY ["src/Ambev.DeveloperEvaluation.ORM/Ambev.DeveloperEvaluation.ORM.csproj", "src/Ambev.DeveloperEvaluation.ORM/"]
+COPY ["products-dump.json", "/src/"]
 RUN dotnet restore "./src/Ambev.DeveloperEvaluation.WebApi/Ambev.DeveloperEvaluation.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/Ambev.DeveloperEvaluation.WebApi"
@@ -26,4 +27,5 @@ RUN dotnet publish "./Ambev.DeveloperEvaluation.WebApi.csproj" -c $BUILD_CONFIGU
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY --from=build /src/products-dump.json /app/products-dump.json
 ENTRYPOINT ["dotnet", "Ambev.DeveloperEvaluation.WebApi.dll"]
