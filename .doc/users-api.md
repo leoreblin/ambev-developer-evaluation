@@ -2,97 +2,32 @@
 
 ### Users
 
-#### GET /users
-- Description: Retrieve a list of all users
-- Query Parameters:
-  - `_page` (optional): Page number for pagination (default: 1)
-  - `_size` (optional): Number of items per page (default: 10)
-  - `_order` (optional): Ordering of results (e.g., "username asc, email desc")
-- Response: 
-  ```json
-  {
-    "data": [
-      {
-        "id": "integer",
-        "email": "string",
-        "username": "string",
-        "password": "string",
-        "name": {
-          "firstname": "string",
-          "lastname": "string"
-        },
-        "address": {
-          "city": "string",
-          "street": "string",
-          "number": "integer",
-          "zipcode": "string",
-          "geolocation": {
-            "lat": "string",
-            "long": "string"
-          }
-        },
-        "phone": "string",
-        "status": "string (enum: Active, Inactive, Suspended)",
-        "role": "string (enum: Customer, Manager, Admin)"
-      }
-    ],
-    "totalItems": "integer",
-    "currentPage": "integer",
-    "totalPages": "integer"
-  }
-  ```
-
 #### POST /users
 - Description: Add a new user
 - Request Body:
   ```json
   {
-    "email": "string",
     "username": "string",
     "password": "string",
-    "name": {
-      "firstname": "string",
-      "lastname": "string"
-    },
-    "address": {
-      "city": "string",
-      "street": "string",
-      "number": "integer",
-      "zipcode": "string",
-      "geolocation": {
-        "lat": "string",
-        "long": "string"
-      }
-    },
     "phone": "string",
+    "email": "string",
     "status": "string (enum: Active, Inactive, Suspended)",
     "role": "string (enum: Customer, Manager, Admin)"
   }
   ```
-- Response: 
+- Response:
   ```json
   {
-    "id": "integer",
-    "email": "string",
-    "username": "string",
-    "password": "string",
-    "name": {
-      "firstname": "string",
-      "lastname": "string"
-    },
-    "address": {
-      "city": "string",
-      "street": "string",
-      "number": "integer",
-      "zipcode": "string",
-      "geolocation": {
-        "lat": "string",
-        "long": "string"
-      }
-    },
-    "phone": "string",
-    "status": "string (enum: Active, Inactive, Suspended)",
-    "role": "string (enum: Customer, Manager, Admin)"
+    "success": true,
+    "message": "User created successfully",
+    "data": {
+      "id": "guid",
+      "name": "string",
+      "email": "string",
+      "phone": "string",
+      "status": "string (enum: Active, Inactive, Suspended)",
+      "role": "string (enum: Customer, Manager, Admin)"
+    }
   }
   ```
 
@@ -100,86 +35,19 @@
 - Description: Retrieve a specific user by ID
 - Path Parameters:
   - `id`: User ID
-- Response: 
+- Response:
   ```json
   {
-    "id": "integer",
-    "email": "string",
-    "username": "string",
-    "password": "string",
-    "name": {
-      "firstname": "string",
-      "lastname": "string"
-    },
-    "address": {
-      "city": "string",
-      "street": "string",
-      "number": "integer",
-      "zipcode": "string",
-      "geolocation": {
-        "lat": "string",
-        "long": "string"
-      }
-    },
-    "phone": "string",
-    "status": "string (enum: Active, Inactive, Suspended)",
-    "role": "string (enum: Customer, Manager, Admin)"
-  }
-  ```
-
-#### PUT /users/{id}
-- Description: Update a specific user
-- Path Parameters:
-  - `id`: User ID
-- Request Body:
-  ```json
-  {
-    "email": "string",
-    "username": "string",
-    "password": "string",
-    "name": {
-      "firstname": "string",
-      "lastname": "string"
-    },
-    "address": {
-      "city": "string",
-      "street": "string",
-      "number": "integer",
-      "zipcode": "string",
-      "geolocation": {
-        "lat": "string",
-        "long": "string"
-      }
-    },
-    "phone": "string",
-    "status": "string (enum: Active, Inactive, Suspended)",
-    "role": "string (enum: Customer, Manager, Admin)"
-  }
-  ```
-- Response: 
-  ```json
-  {
-    "id": "integer",
-    "email": "string",
-    "username": "string",
-    "password": "string",
-    "name": {
-      "firstname": "string",
-      "lastname": "string"
-    },
-    "address": {
-      "city": "string",
-      "street": "string",
-      "number": "integer",
-      "zipcode": "string",
-      "geolocation": {
-        "lat": "string",
-        "long": "string"
-      }
-    },
-    "phone": "string",
-    "status": "string (enum: Active, Inactive, Suspended)",
-    "role": "string (enum: Customer, Manager, Admin)"
+    "success": true,
+    "message": "User retrieved successfully",
+    "data": {
+      "id": "guid",
+      "name": "string",
+      "email": "string",
+      "phone": "string",
+      "status": "string (enum: Active, Inactive, Suspended)",
+      "role": "string (enum: Customer, Manager, Admin)"
+    }
   }
   ```
 
@@ -187,32 +55,14 @@
 - Description: Delete a specific user
 - Path Parameters:
   - `id`: User ID
-- Response: 
+- Response:
   ```json
   {
-    "id": "integer",
-    "email": "string",
-    "username": "string",
-    "password": "string",
-    "name": {
-      "firstname": "string",
-      "lastname": "string"
-    },
-    "address": {
-      "city": "string",
-      "street": "string",
-      "number": "integer",
-      "zipcode": "string",
-      "geolocation": {
-        "lat": "string",
-        "long": "string"
-      }
-    },
-    "phone": "string",
-    "status": "string (enum: Active, Inactive, Suspended)",
-    "role": "string (enum: Customer, Manager, Admin)"
+    "success": true,
+    "message": "User deleted successfully"
   }
   ```
+
 <br/>
 <div style="display: flex; justify-content: space-between;">
   <a href="./carts-api.md">Previous: Carts API</a>

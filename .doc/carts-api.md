@@ -2,125 +2,46 @@
 
 ### Carts
 
-#### GET /carts
-- Description: Retrieve a list of all carts
-- Query Parameters:
-  - `_page` (optional): Page number for pagination (default: 1)
-  - `_size` (optional): Number of items per page (default: 10)
-  - `_order` (optional): Ordering of results (e.g., "id desc, userId asc")
-- Response: 
+#### GET /carts/{customerId}
+- Description: Retrieve the customer's cart
+- Response:
   ```json
   {
-    "data": [
-      {
-        "id": "integer",
-        "userId": "integer",
-        "date": "string (date)",
-        "products": [
-          {
-            "productId": "integer",
-            "quantity": "integer"
-          }
-        ]
-      }
-    ],
-    "totalItems": "integer",
-    "currentPage": "integer",
-    "totalPages": "integer"
+    "success": true,
+    "data": {
+      "userId": "guid",
+      "items": [
+        {
+          "product": {
+            "id": "guid",
+            "title": "string",
+            "price": 0.0
+          },
+          "quantity": 1
+        }
+      ]
+    }
   }
   ```
 
-#### POST /carts
-- Description: Add a new cart
+#### POST /carts/{customerId}
+- Description: Add a product to the customer's cart
 - Request Body:
   ```json
   {
-    "userId": "integer",
-    "date": "string (date)",
-    "products": [
-      {
-        "productId": "integer",
-        "quantity": "integer"
-      }
-    ]
+    "productId": "guid",
+    "quantity": 2
   }
   ```
-- Response: 
-  ```json
-  {
-    "id": "integer",
-    "userId": "integer",
-    "date": "string (date)",
-    "products": [
-      {
-        "productId": "integer",
-        "quantity": "integer"
-      }
-    ]
-  }
-  ```
+- Response: `204 No Content`
 
-#### GET /carts/{id}
-- Description: Retrieve a specific cart by ID
-- Path Parameters:
-  - `id`: Cart ID
-- Response: 
-  ```json
-  {
-    "id": "integer",
-    "userId": "integer",
-    "date": "string (date)",
-    "products": [
-      {
-        "productId": "integer",
-        "quantity": "integer"
-      }
-    ]
-  }
-  ```
+#### DELETE /carts/{customerId}
+- Description: Clears the customer's cart
+- Response: `204 No Content`
 
-#### PUT /carts/{id}
-- Description: Update a specific cart
-- Path Parameters:
-  - `id`: Cart ID
-- Request Body:
-  ```json
-  {
-    "userId": "integer",
-    "date": "string (date)",
-    "products": [
-      {
-        "productId": "integer",
-        "quantity": "integer"
-      }
-    ]
-  }
-  ```
-- Response: 
-  ```json
-  {
-    "id": "integer",
-    "userId": "integer",
-    "date": "string (date)",
-    "products": [
-      {
-        "productId": "integer",
-        "quantity": "integer"
-      }
-    ]
-  }
-  ```
-
-#### DELETE /carts/{id}
-- Description: Delete a specific cart
-- Path Parameters:
-  - `id`: Cart ID
-- Response: 
-  ```json
-  {
-    "message": "string"
-  }
-  ```
+#### DELETE /carts/{customerId}/remove/{productId}
+- Description: Removes a product from the cart
+- Response: `204 No Content`
 
 
 <br>
