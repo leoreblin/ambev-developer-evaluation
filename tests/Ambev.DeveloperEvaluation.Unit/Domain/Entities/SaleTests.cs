@@ -13,7 +13,7 @@ public class SaleTests
         var sale = CreateSale();
         var productId = Guid.NewGuid();
 
-        sale.AddItem(productId, 4, 10m);
+        sale.AddItem(productId, "Product", 4, 10m);
 
         var item = sale.Items.Single(i => i.ProductId == productId);
         item.Discount.Should().Be(0.10m);
@@ -22,12 +22,25 @@ public class SaleTests
     }
 
     [Fact]
+    public void AddItem_ShouldApplyTenPercentDiscount_WhenQuantityIsNine()
+    {
+        var sale = CreateSale();
+        var productId = Guid.NewGuid();
+
+        sale.AddItem(productId, "Product", 9, 10m);
+
+        var item = sale.Items.Single(i => i.ProductId == productId);
+        item.Discount.Should().Be(0.10m);
+        item.Total.Should().Be(81m);
+    }
+
+    [Fact]
     public void AddItem_ShouldApplyTwentyPercentDiscount_WhenQuantityBetweenTenAndTwenty()
     {
         var sale = CreateSale();
         var productId = Guid.NewGuid();
 
-        sale.AddItem(productId, 10, 10m);
+        sale.AddItem(productId, "Product", 10, 10m);
 
         var item = sale.Items.Single(i => i.ProductId == productId);
         item.Discount.Should().Be(0.20m);
@@ -36,12 +49,25 @@ public class SaleTests
     }
 
     [Fact]
+    public void AddItem_ShouldApplyTwentyPercentDiscount_WhenQuantityIsTwenty()
+    {
+        var sale = CreateSale();
+        var productId = Guid.NewGuid();
+
+        sale.AddItem(productId, "Product", 20, 10m);
+
+        var item = sale.Items.Single(i => i.ProductId == productId);
+        item.Discount.Should().Be(0.20m);
+        item.Total.Should().Be(160m);
+    }
+
+    [Fact]
     public void AddItem_ShouldNotApplyDiscount_WhenQuantityBelowFour()
     {
         var sale = CreateSale();
         var productId = Guid.NewGuid();
 
-        sale.AddItem(productId, 3, 10m);
+        sale.AddItem(productId, "Product", 3, 10m);
 
         var item = sale.Items.Single(i => i.ProductId == productId);
         item.Discount.Should().Be(0m);
@@ -55,7 +81,7 @@ public class SaleTests
         var sale = CreateSale();
         var productId = Guid.NewGuid();
 
-        var act = () => sale.AddItem(productId, 21, 10m);
+        var act = () => sale.AddItem(productId, "Product", 21, 10m);
 
         act.Should().Throw<DomainException>()
             .WithMessage("Maximum 20 items per product allowed.");
@@ -65,8 +91,8 @@ public class SaleTests
     public void Cancel_ShouldCancelItemsAndZeroTotal()
     {
         var sale = CreateSale();
-        sale.AddItem(Guid.NewGuid(), 2, 10m);
-        sale.AddItem(Guid.NewGuid(), 4, 5m);
+        sale.AddItem(Guid.NewGuid(), "Product A", 2, 10m);
+        sale.AddItem(Guid.NewGuid(), "Product B", 4, 5m);
 
         sale.Cancel();
 
@@ -80,8 +106,8 @@ public class SaleTests
     {
         var sale = CreateSale();
         var productId = Guid.NewGuid();
-        sale.AddItem(productId, 4, 10m);
-        sale.AddItem(Guid.NewGuid(), 2, 5m);
+        sale.AddItem(productId, "Product", 4, 10m);
+        sale.AddItem(Guid.NewGuid(), "Product B", 2, 5m);
 
         var itemToCancel = sale.Items.Single(i => i.ProductId == productId);
         sale.CancelItem(itemToCancel.Id);
@@ -90,5 +116,12 @@ public class SaleTests
     }
 
     private static Sale CreateSale()
-        => new(Guid.NewGuid(), "SALE-TEST", DateTime.UtcNow, Guid.NewGuid(), Guid.NewGuid());
+        => new(
+            Guid.NewGuid(),
+            "SALE-TEST",
+            DateTime.UtcNow,
+            Guid.NewGuid(),
+            "Customer",
+            Guid.NewGuid(),
+            "Branch");
 }

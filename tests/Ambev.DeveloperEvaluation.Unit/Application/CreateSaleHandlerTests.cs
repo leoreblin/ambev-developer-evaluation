@@ -15,6 +15,7 @@ public sealed class CreateSaleHandlerTests
     private readonly CreateSaleHandler _handler;
     private readonly ISaleRepository _saleRepository = Substitute.For<ISaleRepository>();
     private readonly IUserRepository _userRepository = Substitute.For<IUserRepository>();
+    private readonly IBranchRepository _branchRepository = Substitute.For<IBranchRepository>();
     private readonly IProductRepository _productRepository = Substitute.For<IProductRepository>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
 
@@ -23,6 +24,7 @@ public sealed class CreateSaleHandlerTests
         _handler = new CreateSaleHandler(
             _saleRepository,
             _userRepository,
+            _branchRepository,
             _productRepository,
             _unitOfWork);
     }
@@ -80,6 +82,8 @@ public sealed class CreateSaleHandlerTests
         var customer = new User { Role = UserRole.Customer };
         _userRepository.GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
             .Returns(customer);
+        _branchRepository.GetByIdAsync(command.BranchId, Arg.Any<CancellationToken>())
+            .Returns(new Branch("Main Branch", "12345678901234") { Id = command.BranchId });
         _productRepository.ProductsExistAsync(Arg.Any<IEnumerable<Guid>>(), Arg.Any<CancellationToken>())
             .Returns(false);
 
@@ -97,8 +101,16 @@ public sealed class CreateSaleHandlerTests
         var customer = new User { Role = UserRole.Customer, Id = command.CustomerId };
         _userRepository.GetByIdAsync(command.CustomerId, Arg.Any<CancellationToken>())
             .Returns(customer);
+        _branchRepository.GetByIdAsync(command.BranchId, Arg.Any<CancellationToken>())
+            .Returns(new Branch("Main Branch", "12345678901234") { Id = command.BranchId });
         _productRepository.ProductsExistAsync(Arg.Any<IEnumerable<Guid>>(), Arg.Any<CancellationToken>())
             .Returns(true);
+        _productRepository.GetByIdsAsync(Arg.Any<IEnumerable<Guid>>(), Arg.Any<CancellationToken>())
+            .Returns(command.Items.Select(item => new Product
+            {
+                Id = item.ProductId,
+                Title = $"Product {item.ProductId}"
+            }));
 
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
@@ -118,8 +130,16 @@ public sealed class CreateSaleHandlerTests
         var customer = new User { Role = UserRole.Customer };
         _userRepository.GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
             .Returns(customer);
+        _branchRepository.GetByIdAsync(command.BranchId, Arg.Any<CancellationToken>())
+            .Returns(new Branch("Main Branch", "12345678901234") { Id = command.BranchId });
         _productRepository.ProductsExistAsync(Arg.Any<IEnumerable<Guid>>(), Arg.Any<CancellationToken>())
             .Returns(true);
+        _productRepository.GetByIdsAsync(Arg.Any<IEnumerable<Guid>>(), Arg.Any<CancellationToken>())
+            .Returns(command.Items.Select(item => new Product
+            {
+                Id = item.ProductId,
+                Title = $"Product {item.ProductId}"
+            }));
 
         // Act
         await _handler.Handle(command, CancellationToken.None);

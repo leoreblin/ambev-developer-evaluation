@@ -34,9 +34,16 @@ public class SaleRepositoryTests
         var branch = new Branch("Main Branch", "12345678901234") { Id = branchId };
         context.Branches.Add(branch);
 
-        var sale = new Sale(Guid.NewGuid(), "SALE-1", DateTime.UtcNow, customerId, branchId);
+        var sale = new Sale(
+            Guid.NewGuid(),
+            "SALE-1",
+            DateTime.UtcNow,
+            customerId,
+            "Customer Test",
+            branchId,
+            "Main Branch");
         var productId = Guid.NewGuid();
-        sale.AddItem(productId, 4, 10m);
+        sale.AddItem(productId, "Product", 4, 10m);
         var item = sale.Items.Single(i => i.ProductId == productId);
         sale.CancelItem(item.Id);
 

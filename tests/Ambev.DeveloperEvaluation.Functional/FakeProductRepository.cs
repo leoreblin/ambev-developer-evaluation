@@ -27,5 +27,17 @@ public sealed class FakeProductRepository : IProductRepository
     public Task<IEnumerable<Product>> GetByIdsAsync(
         IEnumerable<Guid> productIds,
         CancellationToken cancellationToken = default)
-        => Task.FromResult<IEnumerable<Product>>([]);
+    {
+        var products = productIds
+            .Distinct()
+            .Select(id => new Product
+            {
+                Id = id,
+                Title = $"Product {id}",
+                Price = 10m
+            })
+            .ToList();
+
+        return Task.FromResult<IEnumerable<Product>>(products);
+    }
 }
