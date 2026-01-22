@@ -12,7 +12,7 @@ public static class DefaultContextSeed
         ArgumentNullException.ThrowIfNull(passwordHasher);
 
         await SeedDefaultBranches(context);
-        await SeedDefaultUser(context, passwordHasher);
+        await SeedDefaultUsers(context, passwordHasher);
         await context.SaveChangesAsync();
     }
 
@@ -30,28 +30,42 @@ public static class DefaultContextSeed
         }
     }
 
-    private static async Task SeedDefaultUser(DefaultContext context, IPasswordHasher passwordHasher)
+    private static async Task SeedDefaultUsers(DefaultContext context, IPasswordHasher passwordHasher)
     {
-        const string defaultEmail = "user@local.com";
         const string defaultPassword = "default@123";
 
-        var existingUser = context.Users.FirstOrDefault(user => user.Email == defaultEmail);
-        if (existingUser is not null)
+        if (context.Users.Any())
         {
             return;
         }
 
-        var user = new User
-        {
-            Id = Guid.NewGuid(),
-            Username = "Default User",
-            Email = defaultEmail,
-            Phone = "(11) 99999-9999",
-            Password = passwordHasher.HashPassword(defaultPassword),
-            Role = UserRole.Customer,
-            Status = UserStatus.Active
-        };
+        List<User> users = [
 
-        await context.Users.AddAsync(user);
+            // Default Admin User
+            new User()
+            {
+                Id = Guid.NewGuid(),
+                Username = "Default Admin",
+                Email = "admin@local.com",
+                Phone = "(11) 99999-9999",
+                Password = passwordHasher.HashPassword(defaultPassword),
+                Role = UserRole.Admin,
+                Status = UserStatus.Active
+            },
+
+            // Default Customer User
+            new User()
+            {
+                Id = Guid.NewGuid(),
+                Username = "Default Customer",
+                Email = "customer@local.com",
+                Phone = "(11) 99999-9999",
+                Password = passwordHasher.HashPassword(defaultPassword),
+                Role = UserRole.Customer,
+                Status = UserStatus.Active
+            }
+        ];        
+
+        await context.Users.AddRangeAsync(users);
     }
 }
