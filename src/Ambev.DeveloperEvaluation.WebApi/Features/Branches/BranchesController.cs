@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.WebApi.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Branches;
@@ -18,6 +19,7 @@ public sealed class BranchesController : BaseController
 
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponseWithData<IEnumerable<Branch>>), StatusCodes.Status200OK)]
+    [Authorize]
     public async Task<IActionResult> Get(CancellationToken cancellationToken)
         => Ok(await _branchRepository.GetAllAsync(cancellationToken));
 }

@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Services;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Carts.AddItem;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts;
@@ -27,6 +28,7 @@ public class CartsController : BaseController
     [HttpGet("{customerId:guid}")]
     [ProducesResponseType(typeof(ApiResponseWithData<Cart>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<IActionResult> GetCart(Guid customerId, CancellationToken cancellationToken)
     {
         var cart = await _cartService.GetCartAsync(customerId, cancellationToken);

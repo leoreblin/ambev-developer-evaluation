@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProducts;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products;
@@ -36,6 +37,7 @@ public class ProductsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponseWithData<Product>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [Authorize]
     public async Task<IActionResult> Get([FromQuery] GetProductsQueryData query)
     {
         if (!string.IsNullOrWhiteSpace(query.OrderBy) &&

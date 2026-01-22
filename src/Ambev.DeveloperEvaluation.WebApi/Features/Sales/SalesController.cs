@@ -3,21 +3,21 @@ using Ambev.DeveloperEvaluation.Application.Sales.CancelSaleItem;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
-using Ambev.DeveloperEvaluation.Domain.Exceptions;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Services;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 using AutoMapper;
-using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 
 [ApiController]
 [Route("sales")]
+[Authorize]
 public class SalesController : BaseController
 {
     private readonly IMediator _mediator;
@@ -51,13 +51,13 @@ public class SalesController : BaseController
     {
         if (id == Guid.Empty)
         {
-            throw new ValidationException("Invalid sale identifier.");
+            return BadRequest("Invalid sale identifier.");
         }
 
         var sale = await _saleRepository.GetByIdAsync(id, cancellationToken);
         if (sale is null)
         {
-            throw new KeyNotFoundException("Sale not found.");
+            return NotFound("Sale not found.");
         }
 
         return Ok((GetSaleResponse)sale);
@@ -84,7 +84,7 @@ public class SalesController : BaseController
     {
         if (customerId == Guid.Empty)
         {
-            throw new ValidationException("Invalid customer identifier.");
+            return BadRequest("Invalid customer identifier.");
         }
 
         var sales = await _saleRepository.GetCustomerSalesAsync(
@@ -116,7 +116,7 @@ public class SalesController : BaseController
 
         if (!validationResult.IsValid)
         {
-            throw new ValidationException(validationResult.Errors);
+            return BadRequest(validationResult.Errors);
         }
 
         var command = _mapper.Map<CreateSaleCommand>(request);
@@ -150,13 +150,13 @@ public class SalesController : BaseController
 
         if (!validationResult.IsValid)
         {
-            throw new ValidationException(validationResult.Errors);
+            return BadRequest(validationResult.Errors);
         }
 
         var cart = await _cartService.GetCartAsync(request.CustomerId, cancellationToken);
         if (cart is null)
         {
-            throw new KeyNotFoundException("There is no cart for the user.");
+            return NotFound("There is no cart for the user.");
         }
 
         var command = new CreateSaleCommand
@@ -199,18 +199,18 @@ public class SalesController : BaseController
     {
         if (id == Guid.Empty)
         {
-            throw new ValidationException("Invalid sale identifier.");
+            return BadRequest("Invalid sale identifier.");
         }
 
         var sale = await _saleRepository.GetByIdAsync(id, cancellationToken);
         if (sale is null)
         {
-            throw new KeyNotFoundException("Sale not found.");
+            return NotFound("Sale not found.");
         }
 
         if (sale.IsCancelled)
         {
-            throw new DomainException("The sale has already been cancelled.");
+            return BadRequest("The sale has already been cancelled.");
         }
 
         var command = new CancelSaleCommand(id);
@@ -231,18 +231,18 @@ public class SalesController : BaseController
     {
         if (id == Guid.Empty || itemId == Guid.Empty)
         {
-            throw new ValidationException("Invalid sale or sale item identifier.");
+            return BadRequest("Invalid sale or sale item identifier.");
         }
 
         var sale = await _saleRepository.GetByIdAsync(id, cancellationToken);
         if (sale is null)
         {
-            throw new KeyNotFoundException("Sale not found.");
+            return NotFound("Sale not found.");
         }
 
         if (sale.IsCancelled)
         {
-            throw new DomainException("Cannot cancel an item of a cancelled sale.");
+            return BadRequest("Cannot cancel an item of a cancelled sale.");
         }
 
         var command = new CancelSaleItemCommand(id, itemId);
@@ -270,7 +270,7 @@ public class SalesController : BaseController
     {
         if (id == Guid.Empty)
         {
-            throw new ValidationException("Invalid sale identifier.");
+            return BadRequest("Invalid sale identifier.");
         }
 
         var validator = new UpdateSaleRequestValidator();
@@ -278,7 +278,7 @@ public class SalesController : BaseController
 
         if (!validationResult.IsValid)
         {
-            throw new ValidationException(validationResult.Errors);
+            return BadRequest(validationResult.Errors);
         }
 
         var command = new UpdateSaleCommand(id, request.Items);
