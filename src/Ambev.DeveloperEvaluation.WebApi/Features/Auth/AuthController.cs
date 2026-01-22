@@ -6,6 +6,7 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Auth.AuthenticateUserFeature;
 using Ambev.DeveloperEvaluation.Application.Auth.AuthenticateUser;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Auth;
 
@@ -28,6 +29,42 @@ public class AuthController : BaseController
     {
         _mediator = mediator;
         _mapper = mapper;
+    }
+
+    /// <summary>
+    /// Retrieves the authenticated user.
+    /// </summary>
+    /// <returns>The authenticated user.</returns>
+    [HttpGet("me")]
+    [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+    [Authorize]
+    public IActionResult Me()
+    {
+        var user = HttpContext.User;
+        if (user is null)
+        {
+            return NotFound("Could not find you.");
+        }
+
+        var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var name = user.FindFirst(ClaimTypes.Name)?.Value;
+        var role = user.FindFirst(ClaimTypes.Role)?.Value;
+
+        if (string.IsNullOrWhiteSpace(userId) ||
+            string.IsNullOrWhiteSpace(name) ||
+            string.IsNullOrWhiteSpace(role))
+        {
+            return Unauthorized();
+        }
+
+        return Ok(new
+        {
+            Id = userId,
+            Name = name,
+            Role = role,
+        });
     }
 
     /// <summary>

@@ -12,6 +12,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 
@@ -47,6 +48,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ApiResponseWithData<GetSaleResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
         if (id == Guid.Empty)
@@ -64,27 +66,33 @@ public class SalesController : BaseController
     }
 
     /// <summary>
-    /// Retrieves the sales of a customer.
+    /// Retrieves the sales of the authenticated customer.
     /// </summary>
-    /// <param name="customerId"></param>
     /// <param name="pageNumber"></param>
     /// <param name="pageSize"></param>
     /// <param name="saleNumber"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [HttpGet("customers/{customerId:guid}")]
+    [HttpGet("customers/me")]
     [ProducesResponseType(typeof(ApiResponseWithData<IEnumerable<GetSaleResponse>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [Authorize(Roles = "Customer")]
     public async Task<IActionResult> GetCustomerSales(
-        Guid customerId,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 10,
         [FromQuery] string? saleNumber = null,
         CancellationToken cancellationToken = default)
     {
-        if (customerId == Guid.Empty)
+        var customerIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (!Guid.TryParse(customerIdClaim, out var customerId))
         {
-            return BadRequest("Invalid customer identifier.");
+            return Unauthorized(new ProblemDetails
+            {
+                Title = "Unauthorized",
+                Status = StatusCodes.Status401Unauthorized,
+                Detail = "Invalid user identifier."
+            });
         }
 
         var sales = await _saleRepository.GetCustomerSalesAsync(
@@ -109,6 +117,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ApiResponseWithData<Guid>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateSaleRequest request, CancellationToken cancellationToken)
     {
         var requestValidator = new CreateSaleRequestValidator();
@@ -141,6 +150,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    [Authorize]
     public async Task<IActionResult> CreateFromCart(
         [FromBody] CreateSaleFromCartRequest request, 
         CancellationToken cancellationToken)
@@ -195,6 +205,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    [Authorize]
     public async Task<IActionResult> Cancel([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         if (id == Guid.Empty)
@@ -224,6 +235,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    [Authorize]
     public async Task<IActionResult> CancelSaleItem(
         [FromRoute] Guid id,
         [FromRoute] Guid itemId,
@@ -263,6 +275,7 @@ public class SalesController : BaseController
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    [Authorize]
     public async Task<IActionResult> Update(
         [FromRoute] Guid id,
         [FromBody] UpdateSaleRequest request,
