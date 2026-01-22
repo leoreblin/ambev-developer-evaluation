@@ -1,0 +1,847 @@
+[
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439011"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440000",
+    "title": "Sparkling Mineral Water",
+    "price": {"$numberDecimal": "1.99"},
+    "description": "Natural sparkling mineral water with fine bubbles, sourced from alpine springs.",
+    "category": "Water",
+    "image_url": "https://example.com/products/water1.jpg",
+    "rating": {
+      "rate": 4.2,
+      "count": 150
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439012"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440001",
+    "title": "Premium Cold Brew Coffee",
+    "price": {"$numberDecimal": "4.49"},
+    "description": "Smooth cold brew coffee with chocolatey notes, 12oz bottle.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/coffee1.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 89
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439013"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440002",
+    "title": "Organic Green Tea",
+    "price": {"$numberDecimal": "3.29"},
+    "description": "Certified organic green tea with antioxidant properties.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea1.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 210
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439014"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440003",
+    "title": "Tropical Fruit Juice Blend",
+    "price": {"$numberDecimal": "2.99"},
+    "description": "Refreshing blend of pineapple, mango, and orange juices.",
+    "category": "Juice",
+    "image_url": "https://example.com/products/juice1.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 175
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439015"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440004",
+    "title": "Craft IPA Beer",
+    "price": {"$numberDecimal": "5.99"},
+    "description": "Hoppy India Pale Ale with 6.5% alcohol content.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer1.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 320
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439016"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440005",
+    "title": "Vanilla Protein Shake",
+    "price": {"$numberDecimal": "3.79"},
+    "description": "High-protein nutritional shake with vanilla flavor, 16oz.",
+    "category": "Health Drinks",
+    "image_url": "https://example.com/products/protein1.jpg",
+    "rating": {
+      "rate": 4.1,
+      "count": 95
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439017"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440006",
+    "title": "Classic Cola",
+    "price": {"$numberDecimal": "1.49"},
+    "description": "Traditional cola flavor in a 12oz can.",
+    "category": "Soda",
+    "image_url": "https://example.com/products/soda1.jpg",
+    "rating": {
+      "rate": 4.0,
+      "count": 420
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439018"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440007",
+    "title": "Sparkling Lemonade",
+    "price": {"$numberDecimal": "2.29"},
+    "description": "Carbonated lemonade with natural lemon juice.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/lemonade1.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 180
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439019"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440008",
+    "title": "Dark Roast Coffee Beans",
+    "price": {"$numberDecimal": "12.99"},
+    "description": "1lb bag of premium dark roast coffee beans for brewing.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/coffeebeans1.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 75
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439020"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440009",
+    "title": "Herbal Chamomile Tea",
+    "price": {"$numberDecimal": "3.49"},
+    "description": "Caffeine-free herbal tea with calming chamomile flowers.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea2.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 230
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439021"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440010",
+    "title": "Coconut Water",
+    "price": {"$numberDecimal": "2.79"},
+    "description": "100% pure coconut water with no added sugars.",
+    "category": "Natural Drinks",
+    "image_url": "https://example.com/products/coconut1.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 160
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439022"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440011",
+    "title": "Energy Drink Citrus",
+    "price": {"$numberDecimal": "2.99"},
+    "description": "High-caffeine energy drink with citrus flavor, 16oz can.",
+    "category": "Energy Drinks",
+    "image_url": "https://example.com/products/energy1.jpg",
+    "rating": {
+      "rate": 3.9,
+      "count": 280
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439023"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440012",
+    "title": "Craft Stout Beer",
+    "price": {"$numberDecimal": "6.49"},
+    "description": "Rich dark stout with chocolate and coffee notes, 5.8% ABV.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer2.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 190
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439024"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440013",
+    "title": "Apple Cider Vinegar Drink",
+    "price": {"$numberDecimal": "3.99"},
+    "description": "Probiotic drink with apple cider vinegar and honey.",
+    "category": "Health Drinks",
+    "image_url": "https://example.com/products/acv1.jpg",
+    "rating": {
+      "rate": 4.2,
+      "count": 140
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439025"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440014",
+    "title": "Iced Matcha Latte",
+    "price": {"$numberDecimal": "4.79"},
+    "description": "Ready-to-drink matcha green tea latte with milk, 14oz.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/matcha1.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 210
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439026"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440015",
+    "title": "Hibiscus Iced Tea",
+    "price": {"$numberDecimal": "3.49"},
+    "description": "Refreshing herbal iced tea with hibiscus flowers and citrus notes.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea3.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 125
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439027"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440016",
+    "title": "Cold Pressed Orange Juice",
+    "price": {"$numberDecimal": "4.99"},
+    "description": "Fresh cold-pressed orange juice with no additives, 16oz bottle.",
+    "category": "Juice",
+    "image_url": "https://example.com/products/juice2.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 210
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439028"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440017",
+    "title": "Espresso Shot Can",
+    "price": {"$numberDecimal": "2.99"},
+    "description": "Concentrated cold brew espresso shot, 2oz can.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/espresso1.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 180
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439029"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440018",
+    "title": "Pomegranate Blueberry Juice",
+    "price": {"$numberDecimal": "3.79"},
+    "description": "Antioxidant-rich blend of pomegranate and blueberry juices.",
+    "category": "Juice",
+    "image_url": "https://example.com/products/juice3.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 95
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439030"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440019",
+    "title": "Wheat Beer",
+    "price": {"$numberDecimal": "5.49"},
+    "description": "German-style hefeweizen with banana and clove notes, 5.4% ABV.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer3.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 150
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439031"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440020",
+    "title": "Ginger Kombucha",
+    "price": {"$numberDecimal": "4.29"},
+    "description": "Probiotic fermented tea with fresh ginger, 12oz bottle.",
+    "category": "Fermented Drinks",
+    "image_url": "https://example.com/products/kombucha1.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 230
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439032"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440021",
+    "title": "Vanilla Almond Milk",
+    "price": {"$numberDecimal": "3.99"},
+    "description": "Creamy almond milk with natural vanilla flavor, 32oz carton.",
+    "category": "Milk Alternatives",
+    "image_url": "https://example.com/products/almondmilk1.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 175
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439033"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440022",
+    "title": "Cherry Cola",
+    "price": {"$numberDecimal": "1.79"},
+    "description": "Classic cola with natural cherry flavor, 12oz can.",
+    "category": "Soda",
+    "image_url": "https://example.com/products/soda2.jpg",
+    "rating": {
+      "rate": 4.1,
+      "count": 320
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439034"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440023",
+    "title": "Peach Iced Tea",
+    "price": {"$numberDecimal": "2.49"},
+    "description": "Black tea infused with natural peach flavor, 16oz bottle.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea4.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 190
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439035"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440024",
+    "title": "Cold Brew Latte",
+    "price": {"$numberDecimal": "4.99"},
+    "description": "Smooth cold brew coffee with milk, 14oz can.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/latte1.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 140
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439036"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440025",
+    "title": "Sparkling Raspberry Lemonade",
+    "price": {"$numberDecimal": "2.99"},
+    "description": "Carbonated lemonade with natural raspberry flavor.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/lemonade2.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 210
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439037"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440026",
+    "title": "Coconut Cold Brew",
+    "price": {"$numberDecimal": "5.49"},
+    "description": "Cold brew coffee infused with coconut milk, 12oz can.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/coffee2.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 95
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439038"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440027",
+    "title": "Pale Ale Beer",
+    "price": {"$numberDecimal": "5.99"},
+    "description": "American-style pale ale with citrusy hops, 5.2% ABV.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer4.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 180
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439039"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440028",
+    "title": "Turmeric Latte Mix",
+    "price": {"$numberDecimal": "8.99"},
+    "description": "Powdered mix for golden milk latte with turmeric and spices, 10oz.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/turmeric1.jpg",
+    "rating": {
+      "rate": 4.2,
+      "count": 65
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439040"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440029",
+    "title": "Electrolyte Sports Drink",
+    "price": {"$numberDecimal": "2.29"},
+    "description": "Hydration drink with electrolytes and natural flavors, 20oz.",
+    "category": "Sports Drinks",
+    "image_url": "https://example.com/products/sports1.jpg",
+    "rating": {
+      "rate": 4.0,
+      "count": 420
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439041"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440030",
+    "title": "Mocha Protein Shake",
+    "price": {"$numberDecimal": "3.99"},
+    "description": "Chocolate coffee flavored protein drink, 16oz bottle.",
+    "category": "Health Drinks",
+    "image_url": "https://example.com/products/protein2.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 110
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439042"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440031",
+    "title": "Sparkling Apple Cider",
+    "price": {"$numberDecimal": "3.49"},
+    "description": "Non-alcoholic carbonated apple cider, 12oz bottle.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/cider1.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 85
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439043"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440032",
+    "title": "Matcha Green Tea Powder",
+    "price": {"$numberDecimal": "14.99"},
+    "description": "Premium ceremonial grade matcha powder, 1oz tin.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/matcha2.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 45
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439044"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440033",
+    "title": "Root Beer",
+    "price": {"$numberDecimal": "1.89"},
+    "description": "Classic root beer with sassafras flavor, 12oz bottle.",
+    "category": "Soda",
+    "image_url": "https://example.com/products/soda3.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 275
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439045"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440034",
+    "title": "Cold Pressed Celery Juice",
+    "price": {"$numberDecimal": "5.49"},
+    "description": "Pure cold-pressed celery juice, 16oz bottle.",
+    "category": "Juice",
+    "image_url": "https://example.com/products/juice4.jpg",
+    "rating": {
+      "rate": 3.9,
+      "count": 120
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439046"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440035",
+    "title": "Oat Milk Latte",
+    "price": {"$numberDecimal": "4.79"},
+    "description": "Ready-to-drink latte made with oat milk, 12oz can.",
+    "category": "Milk Alternatives",
+    "image_url": "https://example.com/products/oatmilk1.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 180
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439047"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440036",
+    "title": "Blackberry Sage Soda",
+    "price": {"$numberDecimal": "2.49"},
+    "description": "Artisanal soda with blackberry and sage flavors.",
+    "category": "Soda",
+    "image_url": "https://example.com/products/soda4.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 95
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439048"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440037",
+    "title": "Chai Tea Concentrate",
+    "price": {"$numberDecimal": "6.99"},
+    "description": "Spiced chai tea concentrate for mixing with milk, 32oz bottle.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/chai1.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 130
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439049"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440038",
+    "title": "Lager Beer",
+    "price": {"$numberDecimal": "4.99"},
+    "description": "Crisp golden lager with clean finish, 4.8% ABV.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer5.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 240
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439050"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440039",
+    "title": "Watermelon Energy Drink",
+    "price": {"$numberDecimal": "3.29"},
+    "description": "Sugar-free energy drink with watermelon flavor, 16oz can.",
+    "category": "Energy Drinks",
+    "image_url": "https://example.com/products/energy2.jpg",
+    "rating": {
+      "rate": 4.0,
+      "count": 190
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439051"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440040",
+    "title": "Aloe Vera Drink",
+    "price": {"$numberDecimal": "2.99"},
+    "description": "Refreshing aloe vera beverage with honey, 16.9oz bottle.",
+    "category": "Health Drinks",
+    "image_url": "https://example.com/products/aloe1.jpg",
+    "rating": {
+      "rate": 4.2,
+      "count": 150
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439052"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440041",
+    "title": "French Press Coffee Blend",
+    "price": {"$numberDecimal": "11.99"},
+    "description": "Medium-dark roast whole bean coffee for French press, 12oz.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/coffeebeans2.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 60
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439053"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440042",
+    "title": "Sparkling Yuzu Drink",
+    "price": {"$numberDecimal": "3.99"},
+    "description": "Japanese-inspired sparkling beverage with yuzu citrus, 9.5oz.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/yuzu1.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 75
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439054"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440043",
+    "title": "Cold Brew Decaf Coffee",
+    "price": {"$numberDecimal": "4.49"},
+    "description": "Smooth decaffeinated cold brew coffee, 12oz bottle.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/coffee3.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 110
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439055"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440044",
+    "title": "Elderflower Tonic Water",
+    "price": {"$numberDecimal": "2.79"},
+    "description": "Premium tonic water with elderflower essence.",
+    "category": "Mixers",
+    "image_url": "https://example.com/products/tonic1.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 85
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439056"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440045",
+    "title": "Strawberry Banana Smoothie",
+    "price": {"$numberDecimal": "4.29"},
+    "description": "Dairy-free smoothie with strawberry and banana, 12oz bottle.",
+    "category": "Smoothies",
+    "image_url": "https://example.com/products/smoothie1.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 165
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439057"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440046",
+    "title": "Barrel-Aged Stout",
+    "price": {"$numberDecimal": "8.99"},
+    "description": "Limited edition bourbon barrel-aged stout, 9.2% ABV.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer6.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 55
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439058"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440047",
+    "title": "Honey Ginger Tea",
+    "price": {"$numberDecimal": "3.29"},
+    "description": "Soothing herbal tea with honey and ginger, 16 tea bags.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea5.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 195
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439059"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440048",
+    "title": "Sparkling Peach Tea",
+    "price": {"$numberDecimal": "2.99"},
+    "description": "Carbonated black tea with natural peach flavor.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/tea6.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 120
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439060"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440049",
+    "title": "Caramel Macchiato",
+    "price": {"$numberDecimal": "4.99"},
+    "description": "Ready-to-drink caramel macchiato coffee beverage, 9.5oz.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/coffee4.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 180
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439061"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440050",
+    "title": "Pineapple Coconut Water",
+    "price": {"$numberDecimal": "3.29"},
+    "description": "Coconut water infused with pineapple juice, 16oz.",
+    "category": "Natural Drinks",
+    "image_url": "https://example.com/products/coconut2.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 140
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439062"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440051",
+    "title": "Mint Mojito Soda",
+    "price": {"$numberDecimal": "2.49"},
+    "description": "Non-alcoholic mojito flavored sparkling drink with mint.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/soda5.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 110
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439063"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440052",
+    "title": "Blueberry Acai Tea",
+    "price": {"$numberDecimal": "3.79"},
+    "description": "Antioxidant-rich tea blend with blueberry and acai.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea7.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 90
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439064"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440053",
+    "title": "Cold Brew Nitro Coffee",
+    "price": {"$numberDecimal": "5.99"},
+    "description": "Nitrogen-infused cold brew coffee with creamy texture, 10oz can.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/nitro1.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 130
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439065"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440054",
+    "title": "Grapefruit Soda",
+    "price": {"$numberDecimal": "2.19"},
+    "description": "Zesty grapefruit flavored carbonated beverage, 12oz can.",
+    "category": "Soda",
+    "image_url": "https://example.com/products/soda6.jpg",
+    "rating": {
+      "rate": 4.2,
+      "count": 165
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439066"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440055",
+    "title": "Lavender Lemonade",
+    "price": {"$numberDecimal": "3.49"},
+    "description": "Artisanal lemonade with lavender infusion, 16oz bottle.",
+    "category": "Juice",
+    "image_url": "https://example.com/products/lemonade3.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 75
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439067"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440056",
+    "title": "Soy Milk Chocolate",
+    "price": {"$numberDecimal": "3.79"},
+    "description": "Chocolate flavored soy milk, 32oz carton.",
+    "category": "Milk Alternatives",
+    "image_url": "https://example.com/products/soymilk1.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 120
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439068"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440057",
+    "title": "Sour Beer",
+    "price": {"$numberDecimal": "7.49"},
+    "description": "Tart cherry flavored sour ale, 5.6% ABV.",
+    "category": "Beer",
+    "image_url": "https://example.com/products/beer7.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 85
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439069"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440058",
+    "title": "Mango Lassi",
+    "price": {"$numberDecimal": "3.99"},
+    "description": "Traditional Indian yogurt drink with mango, 12oz bottle.",
+    "category": "Dairy Drinks",
+    "image_url": "https://example.com/products/lassi1.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 65
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439070"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440059",
+    "title": "Cold Pressed Beet Juice",
+    "price": {"$numberDecimal": "4.99"},
+    "description": "Nutrient-rich cold pressed beet juice with apple, 12oz.",
+    "category": "Juice",
+    "image_url": "https://example.com/products/juice5.jpg",
+    "rating": {
+      "rate": 4.1,
+      "count": 95
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439071"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440060",
+    "title": "Hazelnut Coffee Creamer",
+    "price": {"$numberDecimal": "3.49"},
+    "description": "Dairy-free hazelnut flavored coffee creamer, 16oz.",
+    "category": "Coffee Additives",
+    "image_url": "https://example.com/products/creamer1.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 210
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439072"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440061",
+    "title": "Pomegranate Green Tea",
+    "price": {"$numberDecimal": "3.29"},
+    "description": "Green tea with pomegranate flavor, 16 tea bags.",
+    "category": "Tea",
+    "image_url": "https://example.com/products/tea8.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 145
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439073"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440062",
+    "title": "Vanilla Coke",
+    "price": {"$numberDecimal": "1.99"},
+    "description": "Classic cola with vanilla flavor, 12oz can.",
+    "category": "Soda",
+    "image_url": "https://example.com/products/soda7.jpg",
+    "rating": {
+      "rate": 4.3,
+      "count": 290
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439074"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440063",
+    "title": "Cold Brew Concentrate",
+    "price": {"$numberDecimal": "9.99"},
+    "description": "Highly concentrated cold brew for diluting, 32oz bottle.",
+    "category": "Coffee",
+    "image_url": "https://example.com/products/concentrate1.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 55
+    }
+  },
+  {
+    "_id": {"$oid": "507f1f77bcf86cd799439075"},
+    "external_id": "550e8400-e29b-41d4-a716-446655440064",
+    "title": "Sparkling Elderflower",
+    "price": {"$numberDecimal": "3.99"},
+    "description": "Elegant sparkling water with elderflower essence.",
+    "category": "Sparkling Drinks",
+    "image_url": "https://example.com/products/elderflower1.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 70
+    }
+  }
+]

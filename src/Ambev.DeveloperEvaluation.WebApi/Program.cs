@@ -6,10 +6,12 @@ using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Data.NoSql.Configurations;
 using Ambev.DeveloperEvaluation.Data.NoSql.Context;
 using Ambev.DeveloperEvaluation.Data.NoSql.Extensions;
+using Ambev.DeveloperEvaluation.Data.NoSql.Services;
 using Ambev.DeveloperEvaluation.IoC;
 using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
+using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using StackExchange.Redis;
@@ -31,7 +33,33 @@ public class Program
             builder.Services.AddEndpointsApiExplorer();
 
             builder.AddBasicHealthChecks();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Bearer {token}"
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+            });
 
             // PostgreSQL Configuration
             builder.Services.AddDbContext<DefaultContext>(options =>
@@ -122,6 +150,16 @@ public class Program
         var services = scope.ServiceProvider;
         var dbContext = services.GetService<DefaultContext>();
         var mongoDbContext = services.GetService<MongoDbContext>();
-        await DefaultContextSeed.SeedAsync(dbContext);
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        var passwordHasher = services.GetRequiredService<IPasswordHasher>();
+        await DefaultContextSeed.SeedAsync(dbContext, passwordHasher);
+
+        if (mongoDbContext is not null)
+        {
+            await MongoProductSeeder.SeedIfEmptyAsync(
+                mongoDbContext,
+                app.Environment.ContentRootPath,
+                logger);
+        }
     }
 }

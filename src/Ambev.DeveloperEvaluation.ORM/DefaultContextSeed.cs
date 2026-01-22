@@ -1,14 +1,18 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Common.Security;
+using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.ORM;
 
 public static class DefaultContextSeed
 {
-    public static async Task SeedAsync(DefaultContext? context)
+    public static async Task SeedAsync(DefaultContext? context, IPasswordHasher passwordHasher)
     {
         ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(passwordHasher);
 
         await SeedDefaultBranches(context);
+        await SeedDefaultUser(context, passwordHasher);
         await context.SaveChangesAsync();
     }
 
@@ -24,5 +28,30 @@ public static class DefaultContextSeed
 
             await context.Branches.AddRangeAsync(branches);
         }
+    }
+
+    private static async Task SeedDefaultUser(DefaultContext context, IPasswordHasher passwordHasher)
+    {
+        const string defaultEmail = "user@local.com";
+        const string defaultPassword = "default@123";
+
+        var existingUser = context.Users.FirstOrDefault(user => user.Email == defaultEmail);
+        if (existingUser is not null)
+        {
+            return;
+        }
+
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Username = "Default User",
+            Email = defaultEmail,
+            Phone = "(11) 99999-9999",
+            Password = passwordHasher.HashPassword(defaultPassword),
+            Role = UserRole.Customer,
+            Status = UserStatus.Active
+        };
+
+        await context.Users.AddAsync(user);
     }
 }
