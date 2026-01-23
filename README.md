@@ -60,8 +60,14 @@ Base URL: `http://localhost:8080`
 
 Request:
 ```json
-{
-  "email": "user@local.com",
+// Customer
+{  
+  "email": "customer@local.com",
+  "password": "default@123"
+}
+// Admin
+{  
+  "email": "admin@local.com",
   "password": "default@123"
 }
 ```
